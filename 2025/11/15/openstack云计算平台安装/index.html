@@ -1,0 +1,757 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>openstack云计算平台 | 冰痕blog</title><meta name="author" content="冰痕"><meta name="copyright" content="冰痕"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="openstack云计算平台"><meta name="application-name" content="openstack云计算平台"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="openstack云计算平台"><meta property="og:url" content="http://binghenblog.github.io/2025/11/15/openstack%E4%BA%91%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85/index.html"><meta property="og:site_name" content="冰痕blog"><meta property="og:description" content="前提准备： 系统镜像：openEuler-22.03-LTS-SP3-x86_64-dvd.iso 1https:&amp;#x2F;&amp;#x2F;www.openeuler.openatom.cn&amp;#x2F;zh&amp;#x2F;download&amp;#x2F;  本地仓库：openStack-train.iso  测试镜像：cirros-0.5.1-x86_64-"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="http://binghenblog.github.io/favicon.ico"><meta property="article:author" content="冰痕"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="http://binghenblog.github.io/favicon.ico"><meta name="description" content="前提准备： 系统镜像：openEuler-22.03-LTS-SP3-x86_64-dvd.iso 1https:&amp;#x2F;&amp;#x2F;www.openeuler.openatom.cn&amp;#x2F;zh&amp;#x2F;download&amp;#x2F;  本地仓库：openStack-train.iso  测试镜像：cirros-0.5.1-x86_64-"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://binghenblog.github.io/2025/11/15/openstack%E4%BA%91%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":null},
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 冰痕","link":"链接: ","source":"来源: 冰痕blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '冰痕blog',
+  title: 'openstack云计算平台',
+  postAI: '',
+  pageFillDescription: '前提准备：, 1.安装配置VMware虚拟机, 2.配置安装环境, 2.1 连接工具, 2.2 修改网络地址, 2.3 主机名管理与域名解析, 2.3 关闭防火墙, 2.4 搭建计算节点, 2.4 配置本地仓库, 3. 安装软件, 3.1 Chrony时间同步服务, 3.2 安装OpenStack云计算平台基础框架, 3.3安装MariaDB数据库, 3.4 安装RabbitMQ消息队列服务, 3.5 安装Memcached缓存服务, 3.6 安装etcd分布式键-值对存储系统, 4. 服务安装, 4.1 认证服务(Keystone)安装, 4.2 镜像服务(Glance)安装前提准备系统镜像本地仓库测试镜像远程控制软件虚拟机安装配置虚拟机创建新的虚拟机选择自定义高级这边选择稍后安装操作系统选择处理器内核数量可以多给点虚拟机内存至少给如果一开始给的内存少的话后面可以再添加选择仅主机模式后面还要再添加一张网卡模式选择将虚拟磁盘存储为单个文件最大磁盘大小我这是给的实际可以根据需求扩大这边选择自定义硬件来添加新网卡和打开的虚拟化创建完成以后在虚拟机的左上角选择编辑虚拟网络编辑器将仅主机的子网地址改为将的子网地址改为将这俩的打开开始挂载镜像文件挂载上之后打开虚拟机用键盘的上键选择第一个刚进来选择中文简体中文选择右下角继续选择网络和主机名把这两个网卡和打开然后下面有主机名输入点击应用然后配置账户密码也可以设置成其他的都配置完成后点击开始安装等待安装完成选择重启系统当前界面是等待登录界面输入用户名和之前设置的密码登录成功就显示这个页面配置安装环境连接工具输入查看地址可以看到现在地址是打开软件点击左上角在打开的界面中选择然后在下方输入地址和用户名最后点击连接输入密码连接成功修改网络地址查看本地网卡地址可以看到有两块网卡和然后进入网卡配置所在目录打开网卡配置文件将修改为并在最后面添加按保存并退出然后打开配置文件修改以下内容保存并退出文件然后重启网络重新加载网络配置启动网卡启动网卡主机名管理与域名解析可以输入命令查看当前计算机的主机名可以通过修改文件用来修改主机名修改后需要重启系统来使更改生效打开文件来查看本地域名解析在文件中最后一行添加以下内容后保存并退出测试与主机的连通性字节的数据字节来自时间毫秒字节来自时间毫秒关闭防火墙查看防火墙状态停止防火墙禁止开机自启动禁用搭建计算节点虚拟机控制节点计算节点主机名核核磁盘内存网卡仅主机模式网卡模式返回虚拟机软件右键控制节点选择管理克隆这一步选择完整克隆修改地址删除并修改为下面地址保存并退出删除并修改为下面地址保存并退出然后重新加载网络重新加载网络配置启动网卡启动网卡更改主机名将里面内容修改为然后重启系统添加本地解析在最后一行添加下面内容把控制节点也添加上本地解析配置本地仓库需要提前准备好本地仓库文件先把文件上传到文件夹中然后在文件夹中创建个文件夹将文件挂载到上面可以通过修改文件让系统自动挂载镜像备份原有源文件然后编辑本地源文件清除缓存重新建立源缓存在控制节点配置服务器安装配置主目录为软件仓库目录启用匿名用户设置匿名用户访问的主目录启动服务并设置开机自启动在计算节点配置源备份原有源配置文件直接从控制节点远程复制配置文件减少工作量编辑源配置文件通过使用控制节点的软件仓库清除源缓存并重建缓存在控制节点和计算节点都安装网络工具箱软件测试源是否可用到这一步可以拍摄系统快照用于备份建议多进行快照备份安装软件时间同步服务配置控制节点为时间服务器打开配置文件找到以下两个取消注释并修改重启时间同步服务配置计算节点与控制节点时间同步打开配置文件将默认的同步服务器删除或注释添加控制节点的时间同步重启时间同步服务检查时间同步服务状态可以看到时间同步服务器为左边显示表示连接成功显示表示连接不成功检查配置是否写错或本地解析没有或者更改配置后没有重启服务安装云计算平台基础框架安装软件框架控制节点和计算节点都需要安装安装后会生成源文件没有连接外网的话建议删除升级所有软件安装云计算平台管理客户端两个节点都安装安装数据库安装数据库只需要在控制节点上安装安装的第一个是数据库服务端第二个是数据库管理接口创建数据库配置文件添加以下内容设置开机自启动并启动数据库初始化数据库输入当前密码直接按键是否设置新密码输入新密码确认新密码是否删除匿名用户是否禁止用户远程登录是否删除测试数据库是否重新加载权限表登录数据库进行测试登录成功后输入后按回车退出安装消息队列服务安装只需要在控制节点进行安装添加用户并设置用户权限检查服务运行情况安装缓存服务安装缓存服务软件只需要在控制节点安装配置缓存服务配置缓存服务将文件中参数的值改为以下内容启动服务检查服务运行情况安装分布式键值对存储系统安装软件只需要在控制节点安装配置服务器修改并启用取消注释以下数据启动服务检查服务运行情况服务安装认证服务安装安装只需要在控制节点安装创建的数据库并授权先进入数据库新建数据库给用户授权使用数据库修改配置文件这是一个很长的文件可以用编辑器的搜索功能修改和部分添加或取消注释初始化数据库同步数据库检查数据库是否同步成功初始化密钥库初始化用户身份认证信息配置服务为服务器增加支持修改服务器配置并启动服务打开配置文件修改修改的值启动服务模拟登录验证创建初始化环境变量文件写入以下内容导入环境变量进行验证检测服务创建与查询项目列表创建名为的项目查看现有项目列表创建角色与查询角色列表创建一个名为的角色查看现有角色列表查看现有域列表查看现有用户列表镜像服务安装安装软件包只需要在控制节点安装创建数据库并授权修改配置文件备份配置文件删除配置文件中的所有注释和空行生成新的配置文件打开配置文件并编辑初始化数据库同步数据库检查数据库组件初始化创建用户并分配角色为用户分配角色创建服务及服务端点创建服务名为类型为的服务创建镜像服务端点创建公共用户访问的服务端点创建内部组件访问的服务端点创建用户访问的服务端点启动服务验证服务用制作镜像前提准备上传到目录下镜像下载链接制作镜像查看镜像总用量月',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-11-15 22:54:56',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/favicon.ico"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.min.css"/><script async="async" src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://binghenblog.github.io/" title="冰痕博客"><img class="back-menu-item-icon" src="/favicon.ico" alt="冰痕博客"/><span class="back-menu-item-text">冰痕博客</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://binghen111.github.io/" title="冰痕个人主页"><img class="back-menu-item-icon" src="/favicon.ico" alt="冰痕个人主页"/><span class="back-menu-item-text">冰痕个人主页</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://yanweb.top/" title="科研废物导航"><img class="back-menu-item-icon" src="/img/web/yanweb_favicon.ico" alt="科研废物导航"/><span class="back-menu-item-text">科研废物导航</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://www.iconfont.cn/" title="矢量图标库"><img class="back-menu-item-icon" src="/img/web/iconfont_favicon.ico" alt="矢量图标库"/><span class="back-menu-item-text">矢量图标库</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://mcisee.top/" title="所见皆是MC"><img class="back-menu-item-icon" src="/img/web/mcisee_favicon.ico" alt="所见皆是MC"/><span class="back-menu-item-text">所见皆是MC</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">冰痕blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/wx.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src="/wx.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/zfb.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="/zfb.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/11/"><span class="card-archive-list-date">十一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/04/"><span class="card-archive-list-date">四月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">十二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%B3%BB%E7%BB%9F/" itemprop="url">系统</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">openstack云计算平台</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-11-15T04:00:00.000Z" title="发表于 2025-11-15 12:00:00">2025-11-15</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-11-15T14:54:56.471Z" title="更新于 2025-11-15 22:54:56">2025-11-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为石家庄"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>石家庄</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://binghenblog.github.io/2025/11/15/openstack%E4%BA%91%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85/"><header><a class="post-meta-categories" href="/categories/%E7%B3%BB%E7%BB%9F/" itemprop="url">系统</a><h1 id="CrawlerTitle" itemprop="name headline">openstack云计算平台</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">冰痕</span><time itemprop="dateCreated datePublished" datetime="2025-11-15T04:00:00.000Z" title="发表于 2025-11-15 12:00:00">2025-11-15</time><time itemprop="dateCreated datePublished" datetime="2025-11-15T14:54:56.471Z" title="更新于 2025-11-15 22:54:56">2025-11-15</time></header><h1 id="前提准备："><a href="#前提准备：" class="headerlink" title="前提准备："></a>前提准备：</h1><ol>
+<li><p>系统镜像：openEuler-22.03-LTS-SP3-x86_64-dvd.iso</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.openeuler.openatom.cn/zh/download/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>本地仓库：openStack-train.iso</p>
+</li>
+<li><p>测试镜像：cirros-0.5.1-x86_64-disk.img</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/cirros-dev/cirros/releases/download/0.5.1/cirros-0.5.1-x86_64-disk.img</span><br><span class="line">https://download.cirros-cloud.net/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>远程控制软件：MobaXterm</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://mobaxterm.mobatek.net/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>虚拟机：VMware17.6.0</p>
+</li>
+</ol>
+<h1 id="1-安装配置VMware虚拟机"><a href="#1-安装配置VMware虚拟机" class="headerlink" title="1.安装配置VMware虚拟机"></a>1.安装配置VMware虚拟机</h1><p>创建新的虚拟机</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e488e5a0.png" alt="1.1.png"></p>
+<p>选择自定义(高级)</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e48d8721.png" alt="1.2.png"></p>
+<p>这边选择稍后安装操作系统</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e4882b40.png" alt="1.4.png"></p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e48e3658.png" alt="1.5.png"></p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e48ce837.png" alt="1.6.png"></p>
+<p>选择处理器内核数量可以多给点</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e4b9dc6f.png" alt="1.7.png"></p>
+<p>虚拟机内存至少给4GB，如果一开始给的内存少的话，后面可以再添加</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e4c540e1.png" alt="1.8.png"></p>
+<p>选择仅主机模式，后面还要再添加一张网卡(NAT模式)</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e4d38554.png" alt="1.9.png"></p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e4d62d69.png" alt="1.10.png"></p>
+<p>选择将虚拟磁盘存储为单个文件，最大磁盘大小我这是给的100GB，实际可以根据需求扩大</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e4d91291.png" alt="1.11.png"></p>
+<p>这边选择自定义硬件，来添加新网卡和打开CPU的虚拟化</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e4ecedde.png" alt="1.12.png"></p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e4f2fcd6.png" alt="1.13.png"></p>
+<p>创建完成以后，在VMware虚拟机的左上角选择编辑，虚拟网络编辑器</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e502f9a0.png" alt="1.14.png"></p>
+<p>将仅主机的子网地址改为192.168.10.0&#x2F;24</p>
+<p>将NAT的子网地址改为192.168.20.0&#x2F;24</p>
+<p>将这俩的DHCP打开</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e507a5cc.png" alt="1.15.png"></p>
+<p>开始挂载镜像文件</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e50ad032.png" alt="1.16.png"></p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5162a6d.png" alt="1.17.png"></p>
+<p>挂载上之后打开虚拟机，用键盘的上键选择第一个Install openEuler 22.03-LTS-SP3</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5245d8d.png" alt="1.18.png"></p>
+<p>刚进来选择中文-简体中文，选择右下角继续</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5430381.png" alt="1.19.png"></p>
+<p>选择网络和主机名，把这两个网卡ens33和ens34打开，然后下面有主机名输入<code>controller</code>点击应用</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e54610d0.png" alt="1.20.png"></p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e54c402c.png" alt="1.21.png"></p>
+<p>然后配置root账户密码：<code>openstack0#</code>，也可以设置成其他的</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5532b07.png" alt="1.22.png"></p>
+<p>都配置完成后，点击开始安装</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e556ab7f.png" alt="1.23.png"></p>
+<p>等待安装完成选择重启系统</p>
+<p>当前界面是等待登录界面</p>
+<p>输入用户名<code>root</code>和之前设置的密码<code>openstack0#</code></p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e57e2651.png" alt="1.25.png"></p>
+<p>登录成功就显示这个页面</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e58693ba.png" alt="1.26.png"></p>
+<h1 id="2-配置安装环境"><a href="#2-配置安装环境" class="headerlink" title="2.配置安装环境"></a>2.配置安装环境</h1><h2 id="2-1-连接工具"><a href="#2-1-连接工具" class="headerlink" title="2.1 连接工具"></a>2.1 连接工具</h2><p>输入<code>ip a</code>查看ip地址，可以看到现在IP地址是192.168.10.100</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e59465e4.png" alt="2.1.png"></p>
+<p>打开MobaXterm软件，点击左上角session，在打开的界面中选择SSH，然后在下方输入ip地址和用户名，最后点击ok连接</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5a0a00d.png" alt="2.2.png"></p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5b34626.png" alt="2.3.png"></p>
+<p>输入密码，连接成功</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5bde95b.png" alt="2.4.png"></p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5bf399f.png" alt="2.5.png"></p>
+<h2 id="2-2-修改网络地址"><a href="#2-2-修改网络地址" class="headerlink" title="2.2 修改网络地址"></a>2.2 修改网络地址</h2><p>查看本地网卡地址</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5c351a9.png" alt="2.6.png"></p>
+<p>可以看到有两块网卡ens33和ens34</p>
+<p>然后进入网卡配置所在目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/sysconfig/network-scripts/</span><br></pre></td></tr></table></figure>
+
+<p>打开ens33网卡配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi ifcfg-ens33</span><br><span class="line"># 将BOOTPROTO=dhcp修改为static</span><br><span class="line"># 并在最后面添加</span><br><span class="line">IPADDR=192.168.10.100</span><br><span class="line">PREFIX=24</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5d7c852.png" alt="2.7.png"></p>
+<p>按<code>:x</code>保存并退出，然后打开ens34配置文件，修改以下内容</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5e3854f.png" alt="2.8.png"></p>
+<p>保存并退出文件然后重启网络</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nmcli con reload # 重新加载网络配置</span><br><span class="line">nmcli con up ens34 # 启动ens34网卡</span><br><span class="line">nmcli con up ens33 # 启动ens33网卡</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-主机名管理与域名解析"><a href="#2-3-主机名管理与域名解析" class="headerlink" title="2.3 主机名管理与域名解析"></a>2.3 主机名管理与域名解析</h2><p>可以输入<code>hostname</code>命令查看当前计算机的主机名</p>
+<p>可以通过修改<code>/etc/hostname</code>文件用来修改主机名，修改后需要重启系统来使更改生效</p>
+<p>打开<code>/etc/hosts</code>文件来查看本地域名解析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# vi /etc/hosts</span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br></pre></td></tr></table></figure>
+
+<p>在文件中最后一行添加以下内容后，保存并退出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.10.100 controller</span><br></pre></td></tr></table></figure>
+
+<p>测试与主机的连通性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ping controller</span><br><span class="line">PING controller (192.168.10.100) 56(84) 字节的数据。</span><br><span class="line">64 字节，来自 controller (192.168.10.100): icmp_seq=1 ttl=64 时间=0.033 毫秒</span><br><span class="line">64 字节，来自 controller (192.168.10.100): icmp_seq=2 ttl=64 时间=0.059 毫秒</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-关闭防火墙"><a href="#2-3-关闭防火墙" class="headerlink" title="2.3 关闭防火墙"></a>2.3 关闭防火墙</h2><p>查看防火墙状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# systemctl status firewalld</span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">     Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">     Active: active (running) since Fri 2025-11-14 21:17:35 CST; 25min ago</span><br><span class="line">       Docs: man:firewalld(1)</span><br><span class="line">   Main PID: 949 (firewalld)</span><br><span class="line">      Tasks: 2 (limit: 21388)</span><br><span class="line">     Memory: 39.7M</span><br><span class="line">     CGroup: /system.slice/firewalld.service</span><br><span class="line">             └─ 949 /usr/bin/python3 -s /usr/sbin/firewalld --nofork --nopid</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 停止防火墙</span><br><span class="line">[root@controller ~]# systemctl stop firewalld</span><br><span class="line"># 禁止开机自启动</span><br><span class="line">[root@controller ~]# systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+
+<p>禁用SELinux</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# vi /etc/selinux/config</span><br><span class="line">[root@controller ~]# setenforce 0</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-搭建计算节点"><a href="#2-4-搭建计算节点" class="headerlink" title="2.4 搭建计算节点"></a>2.4 搭建计算节点</h2><table>
+<thead>
+<tr>
+<th>虚拟机</th>
+<th>控制节点</th>
+<th>计算节点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主机名</td>
+<td>controller</td>
+<td>compute</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>2核</td>
+<td>2核</td>
+</tr>
+<tr>
+<td>磁盘</td>
+<td>100GB</td>
+<td>100GB</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>4GB</td>
+<td>4GB</td>
+</tr>
+<tr>
+<td>网卡1(仅主机模式)</td>
+<td>192.168.10.100</td>
+<td>192.168.10.101</td>
+</tr>
+<tr>
+<td>网卡2(NAT模式)</td>
+<td>192.168.20.100</td>
+<td>192.168.20.101</td>
+</tr>
+</tbody></table>
+<p>返回vmware虚拟机软件，右键控制节点选择管理-&gt;克隆</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5f5d497.png" alt="2.9.png"></p>
+<p>这一步选择完整克隆</p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e5f96b21.png" alt="2.10.png"></p>
+<p><img src="https://free.picui.cn/free/2025/11/15/69188e600b023.png" alt="2.11.png"></p>
+<p>修改ip地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# cd /etc/sysconfig/network-scripts/</span><br><span class="line">[root@controller network-scripts]# vi ifcfg-ens33</span><br><span class="line">删除UUID，并修改为下面IP地址，保存并退出</span><br><span class="line">IPADDR=192.168.10.101</span><br><span class="line">[root@controller network-scripts]# vi ifcfg-ens34</span><br><span class="line">删除UUID，并修改为下面IP地址，保存并退出</span><br><span class="line">IPADDR=192.168.20.101</span><br><span class="line">然后重新加载网络</span><br><span class="line">nmcli con reload # 重新加载网络配置</span><br><span class="line">nmcli con up ens34 # 启动ens34网卡</span><br><span class="line">nmcli con up ens33 # 启动ens33网卡</span><br></pre></td></tr></table></figure>
+
+<p>更改主机名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# vi /etc/hostname</span><br><span class="line">将里面内容修改为compute</span><br><span class="line">然后重启系统</span><br></pre></td></tr></table></figure>
+
+<p>添加本地解析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@compute ~]# vi /etc/hosts</span><br><span class="line">在最后一行添加下面内容</span><br><span class="line">192.168.10.101 compute</span><br><span class="line">把控制节点也添加上本地解析</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-配置本地仓库"><a href="#2-4-配置本地仓库" class="headerlink" title="2.4 配置本地仓库"></a>2.4 配置本地仓库</h2><p>需要提前准备好本地仓库文件openStack-train.iso</p>
+<p>先把文件上传到&#x2F;opt文件夹中，然后在opt文件夹中创建个openstack文件夹，将文件挂载到上面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# cd /opt</span><br><span class="line">[root@controller opt]# mkdir openstack</span><br><span class="line">[root@controller opt]# mount openStack-train.iso openstack</span><br></pre></td></tr></table></figure>
+
+<p>可以通过修改<code>/etc/fstab</code>文件，让系统自动挂载镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller opt]# vi /etc/fstab</span><br><span class="line">/opt/openStack-train.iso /opt/openstack iso9660 defaults 0 0</span><br></pre></td></tr></table></figure>
+
+<p>备份原有YUM源文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# cd /etc/yum.repos.d/</span><br><span class="line">[root@controller yum.repos.d]# mkdir bak</span><br><span class="line">[root@controller yum.repos.d]# mv *.repo bak</span><br></pre></td></tr></table></figure>
+
+<p>然后编辑本地YUM源文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[root@controller yum.repos.d]# vi openstack.repo</span><br><span class="line">[OS]</span><br><span class="line">name=OS</span><br><span class="line">baseurl=file:///opt/openstack/OS</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[everything]</span><br><span class="line">name=everything</span><br><span class="line">baseurl=file:///opt/openstack/everything</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[EPOL]</span><br><span class="line">name=EPOL</span><br><span class="line">baseurl=file:///opt/openstack/EPOL</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[update]</span><br><span class="line">name=update</span><br><span class="line">baseurl=file:///opt/openstack/update</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[OpenStack_Train]</span><br><span class="line">name=OpenStack_Train</span><br><span class="line">baseurl=file:///opt/openstack/OpenStack_Train</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 清除缓存</span><br><span class="line">[root@controller yum.repos.d]# yum clean all</span><br><span class="line">34 files removed</span><br><span class="line"># 重新建立YUM源缓存</span><br><span class="line">[root@controller yum.repos.d]# yum makecache</span><br><span class="line">OS                           41 MB/s | 153 kB     00:00</span><br><span class="line">everything                   46 MB/s | 131 kB     00:00</span><br><span class="line">EPOL                         12 MB/s |  42 kB     00:00</span><br><span class="line">update                       89 MB/s | 195 kB     00:00</span><br><span class="line">OpenStack_Train              98 MB/s | 363 kB     00:00</span><br><span class="line">Metadata cache created.</span><br></pre></td></tr></table></figure>
+
+<p>在控制节点配置FTP服务器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 安装FTP</span><br><span class="line">[root@controller ~]# yum -y install vsftpd</span><br><span class="line"># 配置FTP主目录为软件仓库目录</span><br><span class="line">[root@controller ~]# vi /etc/vsftpd/vsftpd.conf</span><br><span class="line">anonymous_enable=YES  # 启用匿名用户</span><br><span class="line">anon_root=/opt        # 设置匿名用户访问的主目录</span><br><span class="line"># 启动FTP服务，并设置开机自启动</span><br><span class="line">[root@controller ~]# systemctl start vsftpd</span><br><span class="line">[root@controller ~]# systemctl enable vsftpd</span><br></pre></td></tr></table></figure>
+
+<p>在计算节点配置YUM源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 备份原有YUM源配置文件</span><br><span class="line">[root@compute ~]# cd /etc/yum.repos.d/</span><br><span class="line">[root@compute yum.repos.d]# mkdir bak</span><br><span class="line">[root@compute yum.repos.d]# mv *.repo bak</span><br></pre></td></tr></table></figure>
+
+<p>直接从控制节点远程复制配置文件，减少工作量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@compute yum.repos.d]# scp root@controller:/etc/yum.repos.d/openstack.repo openstack.repo</span><br><span class="line">The authenticity of host &#x27;controller (192.168.10.100)&#x27; can&#x27;t be established.</span><br><span class="line">ED25519 key fingerprint is SHA256:lHJnJv/hPqe6MGXr5SI8YV4rr4Lfd9i5/6GPfFgrPQg.</span><br><span class="line">This key is not known by any other names</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;controller&#x27; (ED25519) to the list of known hosts.</span><br><span class="line"></span><br><span class="line">Authorized users only. All activities may be monitored and reported.</span><br><span class="line">root@controller&#x27;s password:</span><br><span class="line">openstack.repo       100%  419   918.7KB/s   00:00</span><br></pre></td></tr></table></figure>
+
+<p>编辑YUM源配置文件，通过FTP使用控制节点的软件仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[root@compute yum.repos.d]# vi openstack.repo</span><br><span class="line">[OS]</span><br><span class="line">name=OS</span><br><span class="line">baseurl=ftp://controller/openstack/OS</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[everything]</span><br><span class="line">name=everything</span><br><span class="line">baseurl=ftp://controller/openstack/everything</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[EPOL]</span><br><span class="line">name=EPOL</span><br><span class="line">baseurl=ftp://controller/openstack/EPOL</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[update]</span><br><span class="line">name=update</span><br><span class="line">baseurl=ftp://controller/openstack/update</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[OpenStack_Train]</span><br><span class="line">name=OpenStack_Train</span><br><span class="line">baseurl=ftp://controller/openstack/OpenStack_Train</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+
+<p>清除YUM源缓存并重建缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@compute yum.repos.d]# yum clean all</span><br><span class="line">25 files removed</span><br><span class="line">[root@compute yum.repos.d]# yum makecache</span><br><span class="line">OS                 11 MB/s | 153 kB     00:00</span><br><span class="line">everything         11 MB/s | 131 kB     00:00</span><br><span class="line">EPOL               1.5 MB/s |  42 kB     00:00</span><br><span class="line">update             5.9 MB/s | 195 kB     00:00</span><br><span class="line">OpenStack_Train    17 MB/s | 363 kB     00:00</span><br><span class="line">Metadata cache created.</span><br></pre></td></tr></table></figure>
+
+<p>在控制节点和计算节点都安装网络工具箱软件，测试源是否可用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@compute ~]# yum -y install net-tools</span><br><span class="line">[root@controller opt]# yum -y install net-tools</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!TIP]</p>
+<p>到这一步可以拍摄系统快照，用于备份(建议多进行快照备份)</p>
+</blockquote>
+<h1 id="3-安装软件"><a href="#3-安装软件" class="headerlink" title="3. 安装软件"></a>3. 安装软件</h1><h2 id="3-1-Chrony时间同步服务"><a href="#3-1-Chrony时间同步服务" class="headerlink" title="3.1 Chrony时间同步服务"></a>3.1 Chrony时间同步服务</h2><p>配置控制节点为NTP时间服务器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 打开配置文件</span><br><span class="line">[root@controller ~]# vi /etc/chrony.conf</span><br><span class="line"># 找到以下两个取消注释并修改</span><br><span class="line">local stratum 1</span><br><span class="line">allow 192.168.10.0/24</span><br><span class="line"># 重启时间同步服务</span><br><span class="line">[root@controller ~]# systemctl restart chronyd</span><br></pre></td></tr></table></figure>
+
+<p>配置计算节点与控制节点时间同步</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 打开配置文件</span><br><span class="line">[root@compute ~]# vi /etc/chrony.conf</span><br><span class="line"># 将默认的同步服务器删除或注释pool pool.ntp.org iburst</span><br><span class="line"># 添加控制节点的时间同步</span><br><span class="line">server controller iburst</span><br><span class="line"># 重启时间同步服务</span><br><span class="line">[root@compute ~]# systemctl restart chronyd</span><br></pre></td></tr></table></figure>
+
+<p>检查时间同步服务状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@compute ~]# chronyc sources</span><br><span class="line">MS Name/IP address         Stratum Poll Reach LastRx Last sample</span><br><span class="line">==================================================================</span><br><span class="line">^* controller       3   6    77     4  -1301us[+3104us] +/-   63ms</span><br></pre></td></tr></table></figure>
+
+<p>可以看到时间同步服务器为controller，左边显示*表示连接成功，显示?表示连接不成功(检查配置是否写错或本地解析没有，或者更改配置后没有重启服务)</p>
+<h2 id="3-2-安装OpenStack云计算平台基础框架"><a href="#3-2-安装OpenStack云计算平台基础框架" class="headerlink" title="3.2 安装OpenStack云计算平台基础框架"></a>3.2 安装OpenStack云计算平台基础框架</h2><p>安装openstack软件框架(控制节点和计算节点都需要安装)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum -y install openstack-release-train</span><br><span class="line"># 安装后会生成YUM源文件，没有连接外网的话建议删除</span><br><span class="line">rm -rf /etc/yum.repos.d/openstack-train.repo</span><br><span class="line"># 升级所有软件</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">yum -y upgrade</span><br></pre></td></tr></table></figure>
+
+<p>安装openstack云计算平台管理客户端(两个节点都安装)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install python-openstackclient</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3安装MariaDB数据库"><a href="#3-3安装MariaDB数据库" class="headerlink" title="3.3安装MariaDB数据库"></a>3.3安装MariaDB数据库</h2><p>安装MariaDB数据库(只需要在控制节点上安装)</p>
+<p>安装的第一个是数据库服务端，第二个是数据库管理接口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# yum -y install mariadb-server python-PyMySQL</span><br></pre></td></tr></table></figure>
+
+<p>创建数据库配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# vi /etc/my.cnf.d/openstack.cnf</span><br><span class="line"># 添加以下内容</span><br><span class="line">[mysqld]</span><br><span class="line">bind-address = 0.0.0.0</span><br><span class="line">default-storage-engine = innodb</span><br><span class="line">innodb_file_per_table = on</span><br><span class="line">max_connections = 4096</span><br><span class="line">collation-server = utf8_general_ci</span><br><span class="line">character-set-server = utf8</span><br></pre></td></tr></table></figure>
+
+<p>设置开机自启动，并启动数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# systemctl enable mariadb</span><br><span class="line">[root@controller ~]# systemctl start mariadb</span><br></pre></td></tr></table></figure>
+
+<p>初始化数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# mysql_secure_installation</span><br><span class="line">Enter current password for root (enter for none):  # 输入当前密码，直接按Enter键</span><br><span class="line">Change the root password? [Y/n] Y  # 是否设置新密码</span><br><span class="line">New password:000000  # 输入新密码</span><br><span class="line">Re-enter new password:000000  # 确认新密码</span><br><span class="line">Remove anonymous users? [Y/n] Y  # 是否删除匿名用户</span><br><span class="line">Disallow root login remotely? [Y/n] Y  # 是否禁止root用户远程登录</span><br><span class="line">Remove test database and access to it? [Y/n] Y  # 是否删除测试数据库</span><br><span class="line">Reload privilege tables now? [Y/n] Y  # 是否重新加载权限表</span><br></pre></td></tr></table></figure>
+
+<p>登录数据库进行测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# mysql -uroot -p000000</span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MariaDB connection id is 5</span><br><span class="line">Server version: 10.5.22-MariaDB MariaDB Server</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt;</span><br></pre></td></tr></table></figure>
+
+<p>登录成功后输入<code>quit</code>后按回车退出</p>
+<h2 id="3-4-安装RabbitMQ消息队列服务"><a href="#3-4-安装RabbitMQ消息队列服务" class="headerlink" title="3.4 安装RabbitMQ消息队列服务"></a>3.4 安装RabbitMQ消息队列服务</h2><p>安装RabbitMQ(只需要在控制节点进行安装)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# yum -y install rabbitmq-server</span><br><span class="line">[root@controller ~]# systemctl enable rabbitmq-server</span><br><span class="line">[root@controller ~]# systemctl start rabbitmq-server</span><br></pre></td></tr></table></figure>
+
+<p>添加用户，并设置用户权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# rabbitmqctl add_user rabbitmq 000000</span><br><span class="line">[root@controller ~]# rabbitmqctl set_permissions rabbitmq &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br></pre></td></tr></table></figure>
+
+<p>检查服务运行情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# netstat -tulnp | grep 5672</span><br><span class="line">tcp  0 0 0.0.0.0:25672     0.0.0.0:*   LISTEN  18079/beam.smp</span><br><span class="line">tcp6 0 0 :::5672     :::*              LISTEN  18079/beam.smp</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-5-安装Memcached缓存服务"><a href="#3-5-安装Memcached缓存服务" class="headerlink" title="3.5 安装Memcached缓存服务"></a>3.5 安装Memcached缓存服务</h2><p>安装Memcached缓存服务软件(只需要在控制节点安装)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# yum -y install memcached python-memcached</span><br></pre></td></tr></table></figure>
+
+<p>配置缓存服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 配置缓存服务</span><br><span class="line">[root@controller ~]# vi /etc/sysconfig/memcached</span><br><span class="line"># 将文件中OPTIONS参数的值改为以下内容</span><br><span class="line">OPTIONS=&quot;-l 0.0.0.0,::1&quot;</span><br></pre></td></tr></table></figure>
+
+<p>启动服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# systemctl enable memcached</span><br><span class="line">[root@controller ~]# systemctl start memcached</span><br></pre></td></tr></table></figure>
+
+<p>检查服务运行情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# netstat -tulnp | grep 11211</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-6-安装etcd分布式键-值对存储系统"><a href="#3-6-安装etcd分布式键-值对存储系统" class="headerlink" title="3.6 安装etcd分布式键-值对存储系统"></a>3.6 安装etcd分布式键-值对存储系统</h2><p>安装etcd软件(只需要在控制节点安装)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# yum -y install etcd</span><br></pre></td></tr></table></figure>
+
+<p>配置服务器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# vi /etc/etcd/etcd.conf</span><br><span class="line"># 修改并启用(取消注释)以下数据</span><br><span class="line">ETCD_NAME=controller</span><br><span class="line">ETCD_LISTEN_PEER_URLS=&quot;http://192.168.10.100:2380&quot;</span><br><span class="line">ETCD_LISTEN_CLIENT_URLS=&quot;http://localhost:2379,http://192.168.10.100:2379&quot;</span><br><span class="line">ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;http://192.168.10.100:2380&quot;</span><br><span class="line">ETCD_INITIAL_CLUSTER=&quot;controller=http://192.168.10.100:2380&quot;</span><br><span class="line">ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot;</span><br><span class="line">ETCD_INITIAL_CLUSTER_TOKEN=&quot;etcd-cluster-01&quot;</span><br><span class="line">ETCD_ADVERTISE_CLIENT_URLS=&quot;http://192.168.10.100:2379&quot;</span><br></pre></td></tr></table></figure>
+
+<p>启动etcd服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# systemctl enable etcd</span><br><span class="line">[root@controller ~]# systemctl start etcd</span><br></pre></td></tr></table></figure>
+
+<p>检查服务运行情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# netstat -tulnp |grep etcd</span><br><span class="line">tcp  0  0 127.0.0.1:2379       0.0.0.0:*    LISTEN   21183/etcd</span><br><span class="line">tcp  0  0 192.168.10.100:2379  0.0.0.0:*    LISTEN   21183/etcd</span><br><span class="line">tcp  0  0 192.168.10.100:2380  0.0.0.0:*    LISTEN   21183/etcd</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-服务安装"><a href="#4-服务安装" class="headerlink" title="4. 服务安装"></a>4. 服务安装</h1><h2 id="4-1-认证服务-Keystone-安装"><a href="#4-1-认证服务-Keystone-安装" class="headerlink" title="4.1 认证服务(Keystone)安装"></a>4.1 认证服务(Keystone)安装</h2><p>4.1.1 安装keystone(只需要在控制节点安装)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# yum -y install openstack-keystone httpd mod_wsgi</span><br></pre></td></tr></table></figure>
+
+<p>4.1.2 创建keystone的数据库并授权</p>
+<p>先进入数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# mysql -uroot -p000000</span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MariaDB connection id is 3</span><br><span class="line">Server version: 10.5.22-MariaDB MariaDB Server</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt;</span><br></pre></td></tr></table></figure>
+
+<p>新建keystone数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; CREATE DATABASE keystone;</span><br></pre></td></tr></table></figure>
+
+<p>给用户授权使用数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON keystone.* TO &#x27;keystone&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;000000&#x27;;</span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON keystone.* TO &#x27;keystone&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;000000&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>4.1.3 修改keystone配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# vi /etc/keystone/keystone.conf</span><br></pre></td></tr></table></figure>
+
+<p>这是一个很长的文件，可以用vi编辑器的搜索功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 修改[database]和[token]部分,添加或取消注释</span><br><span class="line">[database]</span><br><span class="line">connection = mysql+pymysql://keystone:000000@controller/keystone</span><br><span class="line">[token]</span><br><span class="line">provider = fernet</span><br></pre></td></tr></table></figure>
+
+<p>4.1.4 初始化keystone数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 同步数据库</span><br><span class="line">[root@controller ~]# su keystone -s /bin/sh -c &quot;keystone-manage db_sync&quot;</span><br></pre></td></tr></table></figure>
+
+<p>检查数据库是否同步成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# mysql -uroot -p000000</span><br><span class="line">MariaDB [(none)]&gt; use keystone;</span><br><span class="line">MariaDB [keystone]&gt; show tables;</span><br><span class="line">+------------------------------------+</span><br><span class="line">| Tables_in_keystone                 |</span><br><span class="line">+------------------------------------+</span><br><span class="line">| access_rule                        |</span><br><span class="line">| access_token                       |</span><br><span class="line">| application_credential             |</span><br><span class="line">| application_credential_access_rule |</span><br><span class="line">| application_credential_role        |</span><br><span class="line">| assignment                         |</span><br><span class="line">······</span><br></pre></td></tr></table></figure>
+
+<p>4.1.5 初始化Fernet密钥库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone</span><br><span class="line">[root@controller ~]# keystone-manage credential_setup --keystone-user keystone --keystone-group keystone</span><br></pre></td></tr></table></figure>
+
+<p>4.1.6 初始化用户身份认证信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# keystone-manage bootstrap \</span><br><span class="line">  --bootstrap-password 000000 \</span><br><span class="line">  --bootstrap-admin-url http://controller:5000/v3 \</span><br><span class="line">  --bootstrap-internal-url http://controller:5000/v3 \</span><br><span class="line">  --bootstrap-public-url http://controller:5000/v3 \</span><br><span class="line">  --bootstrap-region-id RegionOne</span><br></pre></td></tr></table></figure>
+
+<p>4.1.7 配置Web服务</p>
+<p>为Apache服务器增加WSGI支持</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ln -s /usr/share/keystone/wsgi-keystone.conf /etc/httpd/conf.d/</span><br></pre></td></tr></table></figure>
+
+<p>修改Apache服务器配置并启动Apache服务</p>
+<p>打开配置文件修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# vi /etc/httpd/conf/httpd.conf</span><br><span class="line"># 修改ServerName的值</span><br><span class="line">ServerName controller</span><br></pre></td></tr></table></figure>
+
+<p>启动Apache服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# systemctl enable httpd</span><br><span class="line">[root@controller ~]# systemctl start httpd</span><br></pre></td></tr></table></figure>
+
+<p>4.1.8 模拟登录验证</p>
+<p>创建初始化环境变量文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# vi admin-login</span><br><span class="line"># 写入以下内容</span><br><span class="line">export OS_USERNAME=admin</span><br><span class="line">export OS_PASSWORD=000000</span><br><span class="line">export OS_PROJECT_NAME=admin</span><br><span class="line">export OS_USER_DOMAIN_NAME=Default</span><br><span class="line">export OS_PROJECT_DOMAIN_NAME=Default</span><br><span class="line">export OS_AUTH_URL=http://controller:5000/v3</span><br><span class="line">export OS_IDENTITY_API_VERSION=3</span><br><span class="line">export OS_IMAGE_API_VERSION=2</span><br></pre></td></tr></table></figure>
+
+<p>导入环境变量进行验证</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# source admin-login</span><br><span class="line">[root@controller ~]# expoet -p</span><br><span class="line">declare -x OS_AUTH_URL=&quot;http://controller:5000/v3&quot;</span><br><span class="line">declare -x OS_IDENTITY_API_VERSION=&quot;3&quot;</span><br><span class="line">declare -x OS_IMAGE_API_VERSION=&quot;2&quot;</span><br><span class="line">declare -x OS_PASSWORD=&quot;000000&quot;</span><br><span class="line">declare -x OS_PROJECT_DOMAIN_NAME=&quot;Default&quot;</span><br><span class="line">declare -x OS_PROJECT_NAME=&quot;admin&quot;</span><br><span class="line">declare -x OS_USERNAME=&quot;amdin&quot;</span><br><span class="line">declare -x OS_USER_DOMAIN_NAME=&quot;Default&quot;</span><br></pre></td></tr></table></figure>
+
+<p>4.1.9 检测Keystone服务</p>
+<p>创建与查询项目列表</p>
+<p>创建名为project的项目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack project create --domain default project</span><br><span class="line">+-------------+----------------------------------+</span><br><span class="line">| Field       | Value                            |</span><br><span class="line">+-------------+----------------------------------+</span><br><span class="line">| description |                                  |</span><br><span class="line">| domain_id   | default                          |</span><br><span class="line">| enabled     | True                             |</span><br><span class="line">| id          | 72eff1d6d4124147bb9421bcb6a9b81b |</span><br><span class="line">| is_domain   | False                            |</span><br><span class="line">| name        | project                          |</span><br><span class="line">| options     | &#123;&#125;                               |</span><br><span class="line">| parent_id   | default                          |</span><br><span class="line">| tags        | []                               |</span><br><span class="line">+-------------+----------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>查看现有项目列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack project list</span><br><span class="line">+----------------------------------+---------+</span><br><span class="line">| ID                               | Name    |</span><br><span class="line">+----------------------------------+---------+</span><br><span class="line">| 72eff1d6d4124147bb9421bcb6a9b81b | project |</span><br><span class="line">| c45249ff11094f90b92ae4501e2e9946 | admin   |</span><br><span class="line">+----------------------------------+---------+</span><br></pre></td></tr></table></figure>
+
+<p>创建角色与查询角色列表</p>
+<p>创建一个名为user的角色</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack role create user</span><br><span class="line">+-------------+----------------------------------+</span><br><span class="line">| Field       | Value                            |</span><br><span class="line">+-------------+----------------------------------+</span><br><span class="line">| description | None                             |</span><br><span class="line">| domain_id   | None                             |</span><br><span class="line">| id          | d6b58d2a23ed40a8bd6e51b8bb31823f |</span><br><span class="line">| name        | user                             |</span><br><span class="line">| options     | &#123;&#125;                               |</span><br><span class="line">+-------------+----------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>查看现有角色列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack role list</span><br><span class="line">+----------------------------------+--------+</span><br><span class="line">| ID                               | Name   |</span><br><span class="line">+----------------------------------+--------+</span><br><span class="line">| 5a88f7a32c9d479ea2b0d8656a8da220 | member |</span><br><span class="line">| 9147e09e4aa64ecfbb8bbffc2ab1d158 | admin  |</span><br><span class="line">| b0db26fafdc141f3b9c08defb93fcc42 | reader |</span><br><span class="line">| d6b58d2a23ed40a8bd6e51b8bb31823f | user   |</span><br><span class="line">+----------------------------------+--------+</span><br></pre></td></tr></table></figure>
+
+<p>查看现有域列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack domain list</span><br><span class="line">+---------+---------+---------+--------------------+</span><br><span class="line">| ID      | Name    | Enabled | Description        |</span><br><span class="line">+---------+---------+---------+--------------------+</span><br><span class="line">| default | Default | True    | The default domain |</span><br><span class="line">+---------+---------+---------+--------------------+</span><br></pre></td></tr></table></figure>
+
+<p>查看现有用户列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack user list</span><br><span class="line">+----------------------------------+-------+</span><br><span class="line">| ID                               | Name  |</span><br><span class="line">+----------------------------------+-------+</span><br><span class="line">| 67fd6c59e274473b954a7fc906c2714a | admin |</span><br><span class="line">+----------------------------------+-------+</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-镜像服务-Glance-安装"><a href="#4-2-镜像服务-Glance-安装" class="headerlink" title="4.2 镜像服务(Glance)安装"></a>4.2 镜像服务(Glance)安装</h2><p>4.2.1 安装Glance软件包(只需要在控制节点安装)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# yum -y install openstack-glance</span><br></pre></td></tr></table></figure>
+
+<p>4.2.2 创建Glance数据库并授权</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# mysql -uroot -p000000</span><br><span class="line">MariaDB [(none)]&gt; CREATE DATABASE glance;</span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON glance.* TO &#x27;glance&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;000000&#x27;;</span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON glance.* TO &#x27;glance&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;000000&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>4.2.3 修改Glance配置文件、</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 备份配置文件</span><br><span class="line">[root@controller ~]# cp /etc/glance/glance-api.conf /etc/glance/glance-api.bak</span><br><span class="line"># 删除配置文件中的所有注释和空行，生成新的配置文件</span><br><span class="line">[root@controller ~]# grep -Ev &#x27;^$|#&#x27; /etc/glance/glance-api.bak &gt; /etc/glance/glance-api.conf</span><br><span class="line"># 打开配置文件并编辑</span><br><span class="line">[root@controller ~]# vi /etc/glance/glance-api.conf</span><br><span class="line">[database]</span><br><span class="line">connection = mysql+pymysql://glance:000000@controller/glance</span><br><span class="line">[keystone_authtoken]</span><br><span class="line">auth_url = http://controller:5000</span><br><span class="line">memcached_servers = controller:11211</span><br><span class="line">auth_type = password</span><br><span class="line">username = glance</span><br><span class="line">password = 000000</span><br><span class="line">project_name = project</span><br><span class="line">user_domain_name = Default</span><br><span class="line">project_domain_name = Default</span><br><span class="line">[paste_deploy]</span><br><span class="line">flavor = keystone</span><br><span class="line">[glance_store]</span><br><span class="line">stores = file</span><br><span class="line">default_store = file</span><br><span class="line">filesystem_store_datadir = /var/lib/glance/images/</span><br></pre></td></tr></table></figure>
+
+<p>4.2.4 初始化Glance数据库</p>
+<p>同步数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# su glance -s /bin/sh -c &quot;glance-manage db_sync&quot;</span><br></pre></td></tr></table></figure>
+
+<p>检查数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# mysql -uroot -p000000</span><br><span class="line">MariaDB [(none)]&gt; use glance;</span><br><span class="line">MariaDB [glance]&gt; show tables;</span><br><span class="line">+----------------------------------+</span><br><span class="line">| Tables_in_glance                 |</span><br><span class="line">+----------------------------------+</span><br><span class="line">| alembic_version                  |</span><br><span class="line">| image_locations                  |</span><br><span class="line">| image_members                    |</span><br><span class="line">| image_properties                 |</span><br><span class="line">| image_tags                       |</span><br><span class="line">······</span><br></pre></td></tr></table></figure>
+
+<p>4.2.5 Glance组件初始化</p>
+<p>创建Glance用户并分配角色</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# . admin-login</span><br><span class="line">[root@controller ~]# openstack user create --domain default --password 000000 glance</span><br><span class="line">+---------------------+----------------------------------+</span><br><span class="line">| Field               | Value                            |</span><br><span class="line">+---------------------+----------------------------------+</span><br><span class="line">| domain_id           | default                          |</span><br><span class="line">| enabled             | True                             |</span><br><span class="line">| id                  | e407a34e5b1e44ba99de094d8cbec37c |</span><br><span class="line">| name                | glance                           |</span><br><span class="line">| options             | &#123;&#125;                               |</span><br><span class="line">| password_expires_at | None                             |</span><br><span class="line">+---------------------+----------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>为用户glance分配admin角色</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack role add --project project --user glance admin</span><br></pre></td></tr></table></figure>
+
+<p>创建Glance服务及服务端点</p>
+<p>创建服务(名为glacne类型为image的服务)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack service create --name glance image</span><br><span class="line">+---------+----------------------------------+</span><br><span class="line">| Field   | Value                            |</span><br><span class="line">+---------+----------------------------------+</span><br><span class="line">| enabled | True                             |</span><br><span class="line">| id      | a491be157c4b4205b631e0a7689142dd |</span><br><span class="line">| name    | glance                           |</span><br><span class="line">| type    | image                            |</span><br><span class="line">+---------+----------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>创建镜像服务端点</p>
+<p>创建公共用户访问的服务端点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack endpoint create --region RegionOne glance public http://controller:9292</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">| Field        | Value                            |</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">| enabled      | True                             |</span><br><span class="line">| id           | 86c9b221a0a54780b8cee9663abf4926 |</span><br><span class="line">| interface    | public                           |</span><br><span class="line">| region       | RegionOne                        |</span><br><span class="line">| region_id    | RegionOne                        |</span><br><span class="line">| service_id   | a491be157c4b4205b631e0a7689142dd |</span><br><span class="line">| service_name | glance                           |</span><br><span class="line">| service_type | image                            |</span><br><span class="line">| url          | http://controller:9292           |</span><br><span class="line">+--------------+----------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>创建内部组件访问的服务端点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack endpoint create --region RegionOne glance internal http://controller:9292+--------------+----------------------------------+</span><br><span class="line">| Field        | Value                            |</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">| enabled      | True                             |</span><br><span class="line">| id           | 142cbc5c2e3d417485b5b3439ccb4881 |</span><br><span class="line">| interface    | internal                         |</span><br><span class="line">| region       | RegionOne                        |</span><br><span class="line">| region_id    | RegionOne                        |</span><br><span class="line">| service_id   | a491be157c4b4205b631e0a7689142dd |</span><br><span class="line">| service_name | glance                           |</span><br><span class="line">| service_type | image                            |</span><br><span class="line">| url          | http://controller:9292           |</span><br><span class="line">+--------------+----------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>创建Admin用户访问的服务端点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack endpoint create --region RegionOne glance admin http://controller:9292   +--------------+----------------------------------+</span><br><span class="line">| Field        | Value                            |</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">| enabled      | True                             |</span><br><span class="line">| id           | 2f4c08ff42b84628b766ed4d65676fdb |</span><br><span class="line">| interface    | admin                            |</span><br><span class="line">| region       | RegionOne                        |</span><br><span class="line">| region_id    | RegionOne                        |</span><br><span class="line">| service_id   | a491be157c4b4205b631e0a7689142dd |</span><br><span class="line">| service_name | glance                           |</span><br><span class="line">| service_type | image                            |</span><br><span class="line">| url          | http://controller:9292           |</span><br><span class="line">+--------------+----------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>启动Glance服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# systemctl enable openstack-glance-api</span><br><span class="line">[root@controller ~]# systemctl start openstack-glance-api</span><br></pre></td></tr></table></figure>
+
+<p>验证Glance服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# netstat -tulnp |grep 9292</span><br><span class="line">tcp   0  0 0.0.0.0:9292   0.0.0.0:*    LISTEN   9065/python3</span><br><span class="line">[root@controller ~]# systemctl status openstack-glance-api</span><br><span class="line">● openstack-glance-api.service - OpenStack Image Service API server</span><br><span class="line">     Loaded: loaded (/usr/lib/systemd/system/openstack-glance-api.service; enabled; vendor preset: disabled)</span><br></pre></td></tr></table></figure>
+
+<p>4.2.6 用Glance制作镜像</p>
+<p>前提准备：cirros-0.5.1-x86_64-disk.img上传到&#x2F;root目录下</p>
+<p>镜像下载链接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/cirros-dev/cirros/releases/download/0.5.1/cirros-0.5.1-x86_64-disk.img</span><br><span class="line">https://download.cirros-cloud.net/</span><br></pre></td></tr></table></figure>
+
+<p>制作镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack image create --file cirros-0.5.1-x86_64-disk.img --disk-format qcow2 --container-format bare --public cirros</span><br></pre></td></tr></table></figure>
+
+<p>查看镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack image list</span><br><span class="line">+--------------------------------------+--------+--------+</span><br><span class="line">| ID                                   | Name   | Status |</span><br><span class="line">+--------------------------------------+--------+--------+</span><br><span class="line">| cafb7398-616d-456f-8f4e-8271ac14ec1d | cirros | active |</span><br><span class="line">+--------------------------------------+--------+--------+</span><br><span class="line">[root@controller ~]# ll /var/lib/glance/images/</span><br><span class="line">总用量 15956</span><br><span class="line">-rw-r----- 1 glance glance 16338944 11月 15 22:12 cafb7398-616d-456f-8f4e-8271ac14ec1d</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src="/favicon.ico" title="头像" alt="头像"><img class="post-copyright__author_img_front" src="/favicon.ico" title="头像" alt="头像"></a><div class="post-copyright__author_name">冰痕</div><div class="post-copyright__author_desc">悠闲知识小屋</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://binghenblog.github.io/2025/11/15/openstack%E4%BA%91%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://binghenblog.github.io/2025/11/15/openstack%E4%BA%91%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85/')">openstack云计算平台</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="/wx.jpg" target="_blank"><img class="post-qr-code-img" src="/wx.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/zfb.jpg" target="_blank"><img class="post-qr-code-img" src="/zfb.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://binghenblog.github.io/2025/11/15/openstack%E4%BA%91%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=openstack云计算平台&amp;url=http://binghenblog.github.io/2025/11/15/openstack%E4%BA%91%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://binghenblog.github.io" target="_blank">冰痕blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/favicon.ico" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2025/05/28/%E6%8E%A8%E8%8D%90%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99/"><img class="prev-cover" src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">推荐实用网站</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src="/favicon.ico" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src="https://bu.dusays.com/2023/08/24/64e6ce9c507bb.png" alt="status"/></div></div><div class="author-info__description"></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">冰痕</h1><div class="author-info__desc">悠闲知识小屋</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/binghenblog" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/1981465459" target="_blank" title="BiliBili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a></div></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来看我的博客鸭~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E5%87%86%E5%A4%87%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">前提准备：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEVMware%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.</span> <span class="toc-text">1.安装配置VMware虚拟机</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">2.配置安装环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 连接工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E4%BF%AE%E6%94%B9%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 修改网络地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E4%B8%BB%E6%9C%BA%E5%90%8D%E7%AE%A1%E7%90%86%E4%B8%8E%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 主机名管理与域名解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">3.4.</span> <span class="toc-text">2.3 关闭防火墙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E6%90%AD%E5%BB%BA%E8%AE%A1%E7%AE%97%E8%8A%82%E7%82%B9"><span class="toc-number">3.5.</span> <span class="toc-text">2.4 搭建计算节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="toc-number">3.6.</span> <span class="toc-text">2.4 配置本地仓库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">3. 安装软件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-Chrony%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 Chrony时间同步服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%AE%89%E8%A3%85OpenStack%E4%BA%91%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 安装OpenStack云计算平台基础框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3%E5%AE%89%E8%A3%85MariaDB%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">4.3.</span> <span class="toc-text">3.3安装MariaDB数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E5%AE%89%E8%A3%85RabbitMQ%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.4.</span> <span class="toc-text">3.4 安装RabbitMQ消息队列服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-%E5%AE%89%E8%A3%85Memcached%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.5.</span> <span class="toc-text">3.5 安装Memcached缓存服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-%E5%AE%89%E8%A3%85etcd%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%AE-%E5%80%BC%E5%AF%B9%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.6.</span> <span class="toc-text">3.6 安装etcd分布式键-值对存储系统</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85"><span class="toc-number">5.</span> <span class="toc-text">4. 服务安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1-Keystone-%E5%AE%89%E8%A3%85"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 认证服务(Keystone)安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E9%95%9C%E5%83%8F%E6%9C%8D%E5%8A%A1-Glance-%E5%AE%89%E8%A3%85"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 镜像服务(Glance)安装</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/15/openstack%E4%BA%91%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85/" title="openstack云计算平台">openstack云计算平台</a><time datetime="2025-11-15T04:00:00.000Z" title="发表于 2025-11-15 12:00:00">2025-11-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/28/%E6%8E%A8%E8%8D%90%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99/" title="推荐实用网站">推荐实用网站</a><time datetime="2025-05-28T12:00:00.000Z" title="发表于 2025-05-28 20:00:00">2025-05-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/11/%E5%85%8D%E8%B4%B9%E6%BF%80%E6%B4%BB%E7%B3%BB%E7%BB%9F/" title="免费激活系统">免费激活系统</a><time datetime="2025-04-11T07:00:00.000Z" title="发表于 2025-04-11 15:00:00">2025-04-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/29/python/" title="python">python</a><time datetime="2025-03-29T14:00:00.000Z" title="发表于 2025-03-29 22:00:00">2025-03-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/17/MySQL/" title="MySQL">MySQL</a><time datetime="2025-03-17T13:00:00.000Z" title="发表于 2025-03-17 21:00:00">2025-03-17</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2024 - 2025 By <a class="footer-bar-link" href="/" title="冰痕" target="_blank">冰痕</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">6</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://binghenblog.github.io/" title="冰痕博客"><img class="back-menu-item-icon" src="/favicon.ico" alt="冰痕博客"/><span class="back-menu-item-text">冰痕博客</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://binghen111.github.io/" title="冰痕个人主页"><img class="back-menu-item-icon" src="/favicon.ico" alt="冰痕个人主页"/><span class="back-menu-item-text">冰痕个人主页</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://yanweb.top/" title="科研废物导航"><img class="back-menu-item-icon" src="/img/web/yanweb_favicon.ico" alt="科研废物导航"/><span class="back-menu-item-text">科研废物导航</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://www.iconfont.cn/" title="矢量图标库"><img class="back-menu-item-icon" src="/img/web/iconfont_favicon.ico" alt="矢量图标库"/><span class="back-menu-item-text">矢量图标库</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://mcisee.top/" title="所见皆是MC"><img class="back-menu-item-icon" src="/img/web/mcisee_favicon.ico" alt="所见皆是MC"/><span class="back-menu-item-text">所见皆是MC</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://t1.kugou.com/7HREkb5EnV3&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("31/10/2024 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2024 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 冰痕 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.jsdelivr.net/npm/anzhiyu-theme-static@1.0.0/waterfall/waterfall.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.jsdelivr.net/npm/anzhiyu-theme-static@1.1.5/accesskey/accesskey.min.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
